@@ -98,6 +98,7 @@ const Menu = ({ addToCart }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+
     const fetchMenu = async () => {
       try {
         setLoading(true);
@@ -106,7 +107,7 @@ const Menu = ({ addToCart }) => {
         setError(null);
       } catch (err) {
         console.error(err);
-        setError("Menu load nahi ho saka. Backend chal raha hai?");
+        setError("Menu loading...");
       } finally {
         setLoading(false);
       }
