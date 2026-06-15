@@ -97,24 +97,31 @@ const Menu = ({ addToCart }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+useEffect(() => {
 
-    const fetchMenu = async () => {
-      try {
-        setLoading(true);
-        const res = await axios.get(`${API_BASE_URL}/api/menu`);
-        setMenuItems(res.data);
-        console.log("MENU DATA:", res.data);
-        setError(null);
-      } catch (err) {
-        console.error(err);
-        setError("Menu loading...");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchMenu();
-  }, []);
+  const fetchMenu = async () => {
+    try {
+      setLoading(true);
+
+      const res = await axios.get(`${API_BASE_URL}/api/menu`);
+
+      console.log("MENU DATA:", res.data);
+
+      setMenuItems(res.data);
+
+      setError(null);
+
+    } catch (err) {
+      console.error(err);
+      setError("Menu loading...");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchMenu();
+
+}, []);
 
   const filtered =
     activeCuisine === "All"
@@ -149,7 +156,7 @@ const Menu = ({ addToCart }) => {
         {loading && (
           <div className="menu-loading">
             <div className="spinner"></div>
-            <p>Menu load ho raha hai...</p>
+            <p>Menu loading...</p>
           </div>
         )}
 
