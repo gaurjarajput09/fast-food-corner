@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import API_BASE_URL from "../config";
+console.log("API base:", API_BASE_URL);
 
 // ===== Local Asset Imports =====
 // Removed static asset imports; using fallback images for menu items
