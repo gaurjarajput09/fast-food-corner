@@ -2,16 +2,17 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ cartCount }) => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-black fixed-top shadow-lg">
+    <nav className="navbar navbar-expand-lg navbar-dark fixed-top premium-navbar">
       <div className="container">
 
         {/* Brand Logo */}
-        <Link className="navbar-brand fw-bold text-warning fs-4" to="/">
-          🍔 Fast Food Corner
+        <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
+          <span className="navbar-logo-icon">🍔</span>
+          <span className="navbar-brand-text">Fast Food <span className="navbar-brand-accent">Corner</span></span>
         </Link>
 
         <button
-          className="navbar-toggler border-warning"
+          className="navbar-toggler border-0"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#nav"
@@ -26,31 +27,31 @@ const Navbar = ({ cartCount }) => {
           <ul className="navbar-nav ms-auto align-items-center gap-1">
 
             <li className="nav-item">
-              <Link className="nav-link" to="/">Home</Link>
+              <Link className="nav-link nav-link-premium" to="/">Home</Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/menu">Menu</Link>
+              <Link className="nav-link nav-link-premium" to="/menu">Menu</Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/about">About</Link>
-            </li>
-
-            <li className="nav-item ms-lg-2">
-              <Link className="nav-link btn btn-outline-warning text-warning px-3 rounded-pill fw-bold" style={{ borderWidth: "2px" }} to="/booking">📅 Book Table</Link>
+              <Link className="nav-link nav-link-premium" to="/about">About</Link>
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/contact">Contact</Link>
+              <Link className="nav-link nav-link-premium" to="/booking">📅 Book Table</Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link nav-link-premium" to="/contact">Contact</Link>
             </li>
 
             {/* Cart */}
             <li className="nav-item">
-              <Link className="nav-link position-relative" to="/cart">
+              <Link className="nav-link nav-link-premium nav-cart-link position-relative" to="/cart">
                 🛒 Cart
                 {cartCount > 0 && (
-                  <span className="badge bg-warning text-dark ms-1 rounded-pill">
+                  <span className="nav-cart-badge">
                     {cartCount}
                   </span>
                 )}
@@ -72,4 +73,4 @@ const Navbar = ({ cartCount }) => {
   );
 };
 
-export default Navbar;
+export default Navbar;

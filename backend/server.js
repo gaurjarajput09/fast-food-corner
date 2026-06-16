@@ -7,17 +7,20 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 
+
 dotenv.config();
 
 const app = express();
-
-app.use(cors());
+app.use(cors({
+  origin: "*"
+}));
 app.use(express.json());
 
 // Routes
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/orders", orderRoutes);
+
 
 // Home route
 app.get("/", (req, res) => {

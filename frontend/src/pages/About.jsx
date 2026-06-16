@@ -118,7 +118,7 @@ const About = () => {
 
         {/* CHEF SECTION */}
         <div className="container py-5 mt-4">
-          <h2 className="text-center mb-5" style={{ fontSize: "2.5rem", fontWeight: "800", color: "#ffc107" }}>👨‍🍳 Meet Our Master Chefs</h2>
+          <h2 className="text-center mb-5" style={{ fontSize: "2.5rem", fontWeight: "800", color: "#00b4d8" }}>👨‍🍳 Meet Our Master Chefs</h2>
           <div className="row text-center mb-5 justify-content-center">
             
             <div className="col-lg-4 col-md-6 mb-4">

@@ -63,16 +63,16 @@ function App() {
 
       {/* Routes */}
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home addToCart={addToCart} />} />
         <Route path="/booking" element={<Booking />} />
 
         <Route
           path="/menu"
           element={<Menu addToCart={addToCart} />}
         />
-        <Route
 
-          path="/order"
+        <Route
+         path="/order"
           element={
             <Order
               cartItems={cart}
