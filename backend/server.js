@@ -14,7 +14,10 @@ const app = express();
 app.use(cors({
   origin: "*"
 }));
-app.use(express.json());
+const path = require("path");
+app.use("/images", express.static(path.join(__dirname, "src", "assets")));
+
+
 
 // Routes
 app.use("/api/bookings", bookingRoutes);
