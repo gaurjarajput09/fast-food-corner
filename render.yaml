@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: fast-food-backend
+    env: node
+    plan: free
+    branch: main
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+  - type: static
+    name: fast-food-frontend
+    env: static
+    plan: free
+    branch: main
+    staticPublishPath: frontend/build
+    buildCommand: cd frontend && npm install && npm run build
+    autoDeploy: true
