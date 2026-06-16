@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const sendWhatsApp = require("../utils/whatsapp");
+const { sendWhatsAppMessage } = require("../services/whatsappService");
 
 // POST ORDER
 router.post("/place", async (req, res) => {
@@ -10,10 +10,13 @@ router.post("/place", async (req, res) => {
     console.log("🧾 ORDER RECEIVED:");
     console.log(order);
 
-    // WhatsApp message send AFTER order received
-    await sendWhatsApp(order.phone, 
-      `🍔 Order Confirmed!\nOrder ID: ${order.orderId}\nTotal: ${order.total}`
-    );
+    // Send WhatsApp order confirmation via Twilio to CUSTOMER
+    const customerMessage = `🍔 ORDER CONFIRMED\n\n🧾 Order ID: ${order.orderId || "N/A"}\n👤 Name: ${order.name || "Customer"}\n💰 Total: ₹${order.total || "0"}\n\n🙏 Thank you for ordering from Fast Food Corner!`;
+    await sendWhatsAppMessage(order.phone, customerMessage);
+
+    // Send WhatsApp notification via Twilio to OWNER
+    const ownerMessage = `🚨 NEW ORDER RECEIVED!\n\n🧾 Order ID: ${order.orderId || "N/A"}\n👤 Name: ${order.name || "Customer"}\n📞 Phone: ${order.phone}\n📍 Address: ${order.address}\n💰 Total: ₹${order.total || "0"}`;
+    await sendWhatsAppMessage("916265935663", ownerMessage);
 
     res.json({
       success: true,

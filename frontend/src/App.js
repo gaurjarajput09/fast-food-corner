@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ChatBotButton from "./components/ChatBotButton";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 
 import AOS from "aos";
@@ -100,6 +101,7 @@ function App() {
 
       <Footer />
       <ChatBotButton />
+      <WhatsAppButton />
     </BrowserRouter>
   );
 }

@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const bookingRoutes = require("./routes/bookingRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
+const whatsappRoutes = require("./routes/whatsappRoutes");
 
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(cors({
   origin: "*"
 }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // Required for Twilio webhooks
 
 const path = require("path");
 const fs = require("fs");
@@ -74,6 +76,7 @@ app.use("/images", express.static(path.join(__dirname, "src", "assets")));
 app.use("/api/bookings", bookingRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/orders", orderRoutes);
+app.use("/api/whatsapp", whatsappRoutes);
 
 
 // Home route
