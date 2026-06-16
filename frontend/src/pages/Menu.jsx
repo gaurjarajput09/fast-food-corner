@@ -3,83 +3,19 @@ import axios from "axios";
 import API_BASE_URL from "../config";
 
 // ===== Local Asset Imports =====
-import imgButterpaneer from "../assets/butterpaneer.webp";
-import imgPaneerlababdar from "../assets/paneerlababdar.webp";
-import imgPalakpaneer from "../assets/palakpaneer.avif";
-import imgSahipaneer from "../assets/sahipaneer.webp";
-import imgVegkofta from "../assets/vegkofta.webp";
-import imgChholebhature from "../assets/chholebhature.webp";
-import imgAaluParathe from "../assets/aalu parathe.webp";
-import imgPlainparthe from "../assets/plainparthe.webp";
-import imgNaan from "../assets/naan.webp";
-import imgRoti from "../assets/roti.webp";
-import imgAaluindian from "../assets/aaluindian.webp";
-import imgGobhimasala from "../assets/gobhimasala.webp";
-import imgPawbhaji from "../assets/pawbhaji.webp";
-import imgSevtamatar from "../assets/sevtamatar.webp";
-import imgOkra from "../assets/okra.webp";
-import imgNoodlesChines from "../assets/noodles-chines.webp";
-import imgTofuChines from "../assets/tofu-chines.webp";
-import imgManchurianchines from "../assets/manchurianchines.webp";
-import imgShexwannoodleschines from "../assets/shexwannoodleschines.webp";
-import imgShezwanrice from "../assets/shezwan rice.webp";
-import imgSpringrollchines from "../assets/springrollchines.webp";
-import imgLasagnaitalian from "../assets/lasagnaitalian.webp";
-import imgWhitesauceitalian from "../assets/whitesauceitalian.webp";
-import imgMacroniitalian from "../assets/macroniitalian.avif";
-import imgPizza from "../assets/pizza.webp";
-import imgGarlicbreaditalian from "../assets/garlicbreaditalian.webp";
-import imgPinkpastaitalian from "../assets/pinkpastaitalian.webp";
-import imgRedsauceitalian from "../assets/redsauceitalian.webp";
-import imgVegpizzaitalian from "../assets/vegpizzaitalian.webp";
-import imgBurger from "../assets/burger.webp";
-import imgFrenchfries from "../assets/frenchfries.webp";
-import imgSandwhich from "../assets/sandwhich.webp";
-import imgColdcoffee from "../assets/coldcoffee.webp";
-import imgIcecream from "../assets/icecream.webp";
-
+// Removed static asset imports; using fallback images for menu items
+// The imageMap will be empty, getImage will return the fallback URL if no local image exists.
 // Fallback Unsplash image
 const FALLBACK = "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop";
 
-// Map: image key (stored in DB) → local import
-const imageMap = {
-  butterpaneer: imgButterpaneer,
-  paneerlababdar: imgPaneerlababdar,
-  palakpaneer: imgPalakpaneer,
-  sahipaneer: imgSahipaneer,
-  vegkofta: imgVegkofta,
-  chholebhature: imgChholebhature,
-  aaluParathe: imgAaluParathe,
-  plainparthe: imgPlainparthe,
-  naan: imgNaan,
-  roti: imgRoti,
-  aaluindian: imgAaluindian,
-  gobhimasala: imgGobhimasala,
-  pawbhaji: imgPawbhaji,
-  sevtamatar: imgSevtamatar,
-  okra: imgOkra,
-  noodlesChines: imgNoodlesChines,
-  tofuChines: imgTofuChines,
-  manchurianchines: imgManchurianchines,
-  shexwannoodleschines: imgShexwannoodleschines,
-  shezwanrice: imgShezwanrice,
-  springrollchines: imgSpringrollchines,
-  lasagnaitalian: imgLasagnaitalian,
-  whitesauceitalian: imgWhitesauceitalian,
-  macroniitalian: imgMacroniitalian,
-  pizza: imgPizza,
-  garlicbreaditalian: imgGarlicbreaditalian,
-  pinkpastaitalian: imgPinkpastaitalian,
-  redsauceitalian: imgRedsauceitalian,
-  vegpizzaitalian: imgVegpizzaitalian,
-  burger: imgBurger,
-  frenchfries: imgFrenchfries,
-  sandwhich: imgSandwhich,
-  coldcoffee: imgColdcoffee,
-  icecream: imgIcecream,
+// Helper to get image URL for a menu item.
+// The backend stores image filenames; they are served from /images.
+// If the image field is empty or invalid, use the fallback Unsplash image.
+const getImage = (key) => {
+  if (!key) return FALLBACK;
+  if (key.startsWith('http')) return key;
+  return `${API_BASE_URL}/images/${key}`;
 };
-
-const getImage = (key) => imageMap[key] || key || FALLBACK;
 
 // ===== Cuisine Config =====
 const cuisines = ["All", "Indian", "Chinese", "Italian", "Fast Food"];
