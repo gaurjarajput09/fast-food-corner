@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Navbar = ({ cartCount }) => {
+const Navbar = ({ cartCount, user, onLogout }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top premium-navbar">
       <div className="container">
@@ -63,6 +63,33 @@ const Navbar = ({ cartCount }) => {
               <Link className="btn-order-now" to="/menu">
                 🔥 Order Now
               </Link>
+            </li>
+
+            {/* ─── AUTH: Login / User Profile ─── */}
+            <li className="nav-item ms-2">
+              {user ? (
+                <div className="nav-user-wrap">
+                  {user.email === "fastfoodinfo00@gmail.com" && (
+                    <Link className="btn btn-sm btn-outline-warning me-2" to="/admin" style={{ borderRadius: "50px", fontSize: "0.75rem", padding: "4px 12px" }}>
+                      🛡️ Admin
+                    </Link>
+                  )}
+                  <div className="nav-user-avatar">
+                    {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                  </div>
+                  <div className="nav-user-info">
+                    <span className="nav-user-name">{user.name}</span>
+                    <span className="nav-user-email">{user.email}</span>
+                  </div>
+                  <button className="nav-logout-btn" onClick={onLogout} title="Logout">
+                    🚪
+                  </button>
+                </div>
+              ) : (
+                <Link className="nav-login-btn" to="/login">
+                  👤 Login
+                </Link>
+              )}
             </li>
 
           </ul>

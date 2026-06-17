@@ -21,10 +21,29 @@ import Cart from "./pages/Cart";
 import Booking from "./pages/Booking";
 import Order from "./pages/Order";
 import Success from "./pages/Success";
+import Login from "./pages/Login";
+import AdminDashboard from "./pages/AdminDashboard";
 
 
 function App() {
   const [cart, setCart] = useState([]);
+
+
+  // ─── User Auth State ──────────────────────────────
+  const [user, setUser] = useState(() => {
+    const saved = localStorage.getItem("user");
+    return saved ? JSON.parse(saved) : null;
+  });
+
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setUser(null);
+  };
 
   useEffect(() => {
     AOS.init({
@@ -60,7 +79,7 @@ function App() {
   return (
     <BrowserRouter>
       {/* Navbar */}
-      <Navbar cartCount={cart.length} />
+      <Navbar cartCount={cart.length} user={user} onLogout={handleLogout} />
 
       {/* Routes */}
       <Routes>
@@ -96,6 +115,8 @@ function App() {
 
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/admin" element={<AdminDashboard user={user} />} />
 
       </Routes>
 
@@ -106,4 +127,4 @@ function App() {
   );
 }
 
-export default App;
+export default App;

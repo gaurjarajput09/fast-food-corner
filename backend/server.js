@@ -8,6 +8,8 @@ const bookingRoutes = require("./routes/bookingRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const whatsappRoutes = require("./routes/whatsappRoutes");
+const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 
 dotenv.config();
@@ -77,6 +79,8 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/menu", menuRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/whatsapp", whatsappRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/admin", adminRoutes);
 
 
 // Home route

@@ -1,13 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const { MessagingResponse } = require('twilio').twiml;
+const WhatsAppLog = require('../models/WhatsAppLog');
 
 // POST /api/whatsapp/webhook
 // Twilio sends a POST request here whenever someone messages the sandbox number
-router.post('/webhook', (req, res) => {
+router.post('/webhook', async (req, res) => {
   console.log('📨 Incoming WhatsApp Message:', req.body);
 
   const incomingMsg = req.body.Body ? req.body.Body.toLowerCase().trim() : '';
+  const from = req.body.From || 'Unknown';
+  const to = req.body.To || 'Unknown';
+  
+  // Log message in MongoDB
+  try {
+    const log = new WhatsAppLog({
+      from,
+      to,
+      body: req.body.Body || '',
+      direction: 'incoming'
+    });
+    await log.save();
+  } catch (err) {
+    console.error('Failed to log incoming WhatsApp message:', err);
+  }
+
   const twiml = new MessagingResponse();
 
   // Basic Rule-Based Chatbot Logic

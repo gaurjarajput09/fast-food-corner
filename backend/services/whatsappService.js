@@ -1,4 +1,5 @@
 const twilio = require('twilio');
+const WhatsAppLog = require('../models/WhatsAppLog');
 
 // Load environment variables if not already loaded
 require('dotenv').config();
@@ -37,6 +38,20 @@ const sendWhatsAppMessage = async (to, message) => {
     });
 
     console.log(`✅ WhatsApp message sent to ${to}: ${response.sid}`);
+
+    // Log to MongoDB
+    try {
+      const log = new WhatsAppLog({
+        from: twilioWhatsAppNumber,
+        to: toFormatted,
+        body: message,
+        direction: 'outgoing'
+      });
+      await log.save();
+    } catch (dbErr) {
+      console.error('Failed to log outgoing WhatsApp message to DB:', dbErr);
+    }
+
     return true;
   } catch (error) {
     console.error(`❌ Failed to send WhatsApp message to ${to}:`, error.message);
